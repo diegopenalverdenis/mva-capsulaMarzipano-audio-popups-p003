@@ -1,87 +1,76 @@
+
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Cápsula Museo Virtual</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    #audioControl {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 6px;
-      border-radius: 8px;
-    }
-
-    #audioToggle img {
-      width: 32px;
-      cursor: pointer;
-    }
-
-    #volumeSlider {
-      width: 100px;
-    }
-  </style>
+<title>MVA-Capsula Expositiva-Prueba001</title>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+<style> @-ms-viewport { width: device-width; } </style>
+<link rel="stylesheet" href="vendor/reset.min.css">
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div id="pano"></div>
+<body class="multiple-scenes ">
 
-  <!-- Panel de control de audio -->
-  <div id="audioControl">
-    <a href="javascript:void(0)" id="audioToggle">
-      <img class="icon off" src="Imagenes/sound-off-icon-icon-md.png" style="display: inline;">
-      <img class="icon on" src="Imagenes/sound-on-icon-icon-md.png" style="display: none;">
-    </a>
-    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
-  </div>
+<div id="pano"></div>
 
-  <!-- Audio de fondo -->
-  <audio id="bgAudio" loop>
-    <source src="audio/LucesDelOcaso-090824.mp3" type="audio/mpeg">
-  </audio>
+<div id="sceneList">
+  <ul class="scenes">
+    
+      <a href="javascript:void(0)" class="scene" data-id="0-vista-general-galeria">
+        <li class="text">Vista General Galeria</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="1-galeria-retratos">
+        <li class="text">galeria-retratos</li>
+      </a>
+    
+  </ul>
+</div>
 
-  <!-- Scripts -->
-  <script src="vendor/marzipano.js"></script>
-  <script src="data.js"></script>
-  <script src="index.js"></script>
-  <script>
-    // Control de audio
-    const audio = document.getElementById("bgAudio");
-    const toggle = document.getElementById("audioToggle");
-    const iconOn = toggle.querySelector(".on");
-    const iconOff = toggle.querySelector(".off");
-    const volumeSlider = document.getElementById("volumeSlider");
+<div id="titleBar">
+  <h1 class="sceneName"></h1>
+</div>
 
-    let isPlaying = false;
+<a href="javascript:void(0)" id="autorotateToggle">
+  <img class="icon off" src="img/play.png">
+  <img class="icon on" src="img/pause.png">
+</a>
 
-    toggle.addEventListener("click", () => {
-      if (!isPlaying) {
-        audio.play().then(() => {
-          iconOn.style.display = "inline";
-          iconOff.style.display = "none";
-          isPlaying = true;
-        }).catch((err) => {
-          console.warn("Error al reproducir audio:", err);
-        });
-      } else {
-        audio.pause();
-        iconOn.style.display = "none";
-        iconOff.style.display = "inline";
-        isPlaying = false;
-      }
-    });
+<a href="javascript:void(0)" id="fullscreenToggle">
+  <img class="icon off" src="img/fullscreen.png">
+  <img class="icon on" src="img/windowed.png">
+</a>
 
-    volumeSlider.addEventListener("input", () => {
-      audio.volume = volumeSlider.value;
-    });
+<a href="javascript:void(0)" id="sceneListToggle">
+  <img class="icon off" src="img/expand.png">
+  <img class="icon on" src="img/collapse.png">
+</a>
 
-    audio.volume = volumeSlider.value;
-  </script>
+<a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
+  <img class="icon" src="img/up.png">
+</a>
+<a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
+  <img class="icon" src="img/down.png">
+</a>
+<a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
+  <img class="icon" src="img/left.png">
+</a>
+<a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
+  <img class="icon" src="img/right.png">
+</a>
+<a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
+  <img class="icon" src="img/plus.png">
+</a>
+<a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
+  <img class="icon" src="img/minus.png">
+</a>
+
+<script src="vendor/screenfull.min.js" ></script>
+<script src="vendor/bowser.min.js" ></script>
+<script src="vendor/marzipano.js" ></script>
+
+<script src="data.js"></script>
+<script src="index.js"></script>
+
 </body>
 </html>
