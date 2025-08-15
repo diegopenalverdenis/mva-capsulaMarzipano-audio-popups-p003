@@ -4,22 +4,8 @@
   <meta charset="UTF-8">
   <title>Cápsula Museo Virtual</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      background-color: #000;
-    }
-
-    #pano {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      z-index: 1;
-    }
-
     #audioControl {
       position: absolute;
       bottom: 20px;
@@ -44,7 +30,6 @@
   </style>
 </head>
 <body>
-  <!-- Visor Marzipano -->
   <div id="pano"></div>
 
   <!-- Panel de control de audio -->
@@ -62,15 +47,41 @@
   </audio>
 
   <!-- Scripts -->
-  <script src="marzipano.js"></script>
+  <script src="vendor/marzipano.js"></script>
   <script src="data.js"></script>
+  <script src="index.js"></script>
   <script>
-    // Inicializar Marzipano
-    const viewer = new Marzipano.Viewer(document.getElementById('pano'));
-    const data = window.APP_DATA;
-    const scenes = {};
+    // Control de audio
+    const audio = document.getElementById("bgAudio");
+    const toggle = document.getElementById("audioToggle");
+    const iconOn = toggle.querySelector(".on");
+    const iconOff = toggle.querySelector(".off");
+    const volumeSlider = document.getElementById("volumeSlider");
 
-    data.scenes.forEach((sceneData) => {
-      const source = Marzipano.ImageUrlSource.fromString(sceneData.levels[0].tileUrl);
-      const geometry = new Marzipano.CubeGeometry(sceneData.levels);
-      const limiter = Marzipano.RectilinearView.limit
+    let isPlaying = false;
+
+    toggle.addEventListener("click", () => {
+      if (!isPlaying) {
+        audio.play().then(() => {
+          iconOn.style.display = "inline";
+          iconOff.style.display = "none";
+          isPlaying = true;
+        }).catch((err) => {
+          console.warn("Error al reproducir audio:", err);
+        });
+      } else {
+        audio.pause();
+        iconOn.style.display = "none";
+        iconOff.style.display = "inline";
+        isPlaying = false;
+      }
+    });
+
+    volumeSlider.addEventListener("input", () => {
+      audio.volume = volumeSlider.value;
+    });
+
+    audio.volume = volumeSlider.value;
+  </script>
+</body>
+</html>
