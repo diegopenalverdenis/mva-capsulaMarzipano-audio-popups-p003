@@ -73,10 +73,12 @@
 <!-- AUDIO AMBIENTAL -->
 <audio id="ambientAudio" src="audio/LucesDelOcaso-090824.mp3" autoplay loop></audio>
 
-<!-- BOTÓN ON/OFF -->
-<button onclick="toggleAudio()" class="audio-toggle" style="position: absolute; top: 20px; right: 20px; z-index: 999;">
-  <img src="img/icon-audio-on.png" alt="Audio Toggle" style="width: 40px;">
-</button>
+<!-- BOTÓN ON/OFF EN CONTENEDOR FIJO -->
+<div id="audioButton" style="position: fixed; top: 20px; right: 20px; z-index: 999;">
+  <button onclick="toggleAudio()" style="background: none; border: none;">
+    <img src="Imagenes/icon-audio-on.png" alt="Audio Toggle" style="width: 40px;">
+  </button>
+</div>
 
 <!-- SCRIPT DE CONTROL -->
 <script>
@@ -89,5 +91,7 @@
     }
   }
 </script>
+</body>
+</html>
 </body>
 </html>
