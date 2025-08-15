@@ -345,7 +345,21 @@
     };
 
     // Show content when hotspot is clicked.
-    wrapper.querySelector('.info-hotspot-header').addEventListener('click', toggle);
+   // Si el hotspot es curatorial, solo abrir el popup
+if (hotspot.title === "El Viejo y el Mar") {
+  wrapper.querySelector('.info-hotspot-header').addEventListener('click', function(e) {
+    e.stopPropagation(); // Evita que se active el modal original
+    openPopup('Imagenes/El Viejo y el Mar.jpg', 'El Viejo y el Mar', 'Acuarela sobre papel, 2022<br>60 × 80 cm<br>Colección del artista');
+  });
+} else if (hotspot.title === "Nostalgia de los Años") {
+  wrapper.querySelector('.info-hotspot-header').addEventListener('click', function(e) {
+    e.stopPropagation();
+    openPopup('Imagenes/Nostalgia de los Años.jpg', 'Nostalgia de los Años', 'Acuarela sobre papel, 2021<br>50 × 70 cm<br>Colección del artista');
+  });
+} else {
+  // Para los demás hotspots, mantener el comportamiento original
+  wrapper.querySelector('.info-hotspot-header').addEventListener('click', toggle);
+}
 // Activar popup curatorial si el título coincide
 if (hotspot.title === "El Viejo y el Mar") {
   wrapper.querySelector('.info-hotspot-header').addEventListener('click', function() {
