@@ -5,7 +5,7 @@
   <title>Cápsula Museo Virtual</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
@@ -16,16 +16,21 @@
     #pano {
       width: 100%;
       height: 100%;
+      position: relative;
+      z-index: 1;
     }
 
     #audioControl {
       position: absolute;
       bottom: 20px;
       left: 20px;
-      z-index: 999;
+      z-index: 9999;
       display: flex;
       align-items: center;
       gap: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 6px;
+      border-radius: 8px;
     }
 
     #audioToggle img {
@@ -68,41 +73,4 @@
     data.scenes.forEach((sceneData) => {
       const source = Marzipano.ImageUrlSource.fromString(sceneData.levels[0].tileUrl);
       const geometry = new Marzipano.CubeGeometry(sceneData.levels);
-      const limiter = Marzipano.RectilinearView.limit.traditional(sceneData.faceSize, 100*Math.PI/180);
-      const view = new Marzipano.RectilinearView(sceneData.initialViewParameters, limiter);
-      const scene = viewer.createScene({ source, geometry, view });
-      scenes[sceneData.id] = scene;
-    });
-
-    scenes[data.scenes[0].id].switchTo();
-
-    // Control de audio
-    const audio = document.getElementById("bgAudio");
-    const toggle = document.getElementById("audioToggle");
-    const iconOn = toggle.querySelector(".on");
-    const iconOff = toggle.querySelector(".off");
-    const volumeSlider = document.getElementById("volumeSlider");
-
-    let isPlaying = false;
-
-    toggle.addEventListener("click", () => {
-      if (!isPlaying) {
-        audio.play();
-        iconOn.style.display = "inline";
-        iconOff.style.display = "none";
-      } else {
-        audio.pause();
-        iconOn.style.display = "none";
-        iconOff.style.display = "inline";
-      }
-      isPlaying = !isPlaying;
-    });
-
-    volumeSlider.addEventListener("input", () => {
-      audio.volume = volumeSlider.value;
-    });
-
-    audio.volume = volumeSlider.value;
-  </script>
-</body>
-</html>
+      const limiter = Marzipano.RectilinearView.limit
