@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MVA-Capsula Expositiva-Prueba001</title>
-<meta charset="utf-8">
-<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
-<style> @-ms-viewport { width: device-width; } </style>
-<link rel="stylesheet" href="vendor/reset.min.css">
-<link rel="stylesheet" href="style.css">
+  <title>MVA-Capsula Expositiva-Prueba001</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+  <style> @-ms-viewport { width: device-width; } </style>
+  <link rel="stylesheet" href="vendor/reset.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="multiple-scenes ">
 
@@ -14,15 +14,12 @@
 
 <div id="sceneList">
   <ul class="scenes">
-    
-      <a href="javascript:void(0)" class="scene" data-id="0-vista-general-galeria">
-        <li class="text">Vista General Galeria</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="1-galeria-retratos">
-        <li class="text">galeria-retratos</li>
-      </a>
-    
+    <a href="javascript:void(0)" class="scene" data-id="0-vista-general-galeria">
+      <li class="text">Vista General Galeria</li>
+    </a>
+    <a href="javascript:void(0)" class="scene" data-id="1-galeria-retratos">
+      <li class="text">galeria-retratos</li>
+    </a>
   </ul>
 </div>
 
@@ -64,12 +61,55 @@
   <img class="icon" src="img/minus.png">
 </a>
 
+<!-- Audio Control Panel -->
+<div id="audioControl" style="position: absolute; bottom: 20px; left: 20px; z-index: 999;">
+  <a href="javascript:void(0)" id="audioToggle">
+    <img class="icon off" src="Iamegenes/sound-off-icon-icon-md.png" style="width: 32px;">
+    <img class="icon on" src="Iamegenes/sound-on-icon-icon-md.png" style="width: 32px; display: none;">
+  </a>
+  <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" style="width: 100px;">
+</div>
+
+<audio id="bgAudio" loop>
+  <source src="audio/LucesDelOcaso-090824.mp3" type="audio/mpeg">
+</audio>
+
 <script src="vendor/screenfull.min.js" ></script>
 <script src="vendor/bowser.min.js" ></script>
 <script src="vendor/marzipano.js" ></script>
 
 <script src="data.js"></script>
 <script src="index.js"></script>
+
+<!-- Audio Integration Script -->
+<script>
+  const audio = document.getElementById("bgAudio");
+  const toggle = document.getElementById("audioToggle");
+  const iconOn = toggle.querySelector(".on");
+  const iconOff = toggle.querySelector(".off");
+  const volumeSlider = document.getElementById("volumeSlider");
+
+  let isPlaying = false;
+
+  toggle.addEventListener("click", () => {
+    if (!isPlaying) {
+      audio.play();
+      iconOn.style.display = "inline";
+      iconOff.style.display = "none";
+    } else {
+      audio.pause();
+      iconOn.style.display = "none";
+      iconOff.style.display = "inline";
+    }
+    isPlaying = !isPlaying;
+  });
+
+  volumeSlider.addEventListener("input", () => {
+    audio.volume = volumeSlider.value;
+  });
+
+  audio.volume = volumeSlider.value;
+</script>
 
 </body>
 </html>
