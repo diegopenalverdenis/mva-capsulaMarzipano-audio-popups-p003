@@ -70,6 +70,24 @@
 
 <script src="data.js"></script>
 <script src="index.js"></script>
-<audio id="ambientAudio" src="LucesDelOcaso-090824.mp3" autoplay loop></audio>
+<!-- AUDIO AMBIENTAL -->
+<audio id="ambientAudio" src="audio/LucesDelOcaso-090824.mp3" autoplay loop></audio>
+
+<!-- BOTÓN ON/OFF -->
+<button onclick="toggleAudio()" class="audio-toggle" style="position: absolute; top: 20px; right: 20px; z-index: 999;">
+  <img src="img/icon-audio-on.png" alt="Audio Toggle" style="width: 40px;">
+</button>
+
+<!-- SCRIPT DE CONTROL -->
+<script>
+  function toggleAudio() {
+    var audio = document.getElementById("ambientAudio");
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+</script>
 </body>
 </html>
